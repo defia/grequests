@@ -206,7 +206,9 @@ func (r *Response) String() string {
 // ClearInternalBuffer is a function that will clear the internal buffer that we use to hold the .String() and .Bytes()
 // data. Once you have used these functions – you may want to free up the memory.
 func (r *Response) ClearInternalBuffer() {
-
+	if r == nil || r.internalByteBuffer == nil {
+		return
+	}
 	if r.Error != nil {
 		return // This is a noop as we will be dereferencing a null pointer
 	}
